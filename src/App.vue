@@ -1,14 +1,26 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div>
+    <div class="header">
+      <router-view name="header"/>
+    </div>
+    <div class="sideBar">
+      <router-view name="sideBar"/>
+    </div>
+    <div class="body">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
+@font-face {
+  font-family: "Alien";
+  src: url("./assets/fonts/shlop rg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Alien";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -26,5 +38,9 @@ nav {
       color: #42b983;
     }
   }
+}
+.header{
+  background-color: #A3F307;
+  width: 1512px;
 }
 </style>

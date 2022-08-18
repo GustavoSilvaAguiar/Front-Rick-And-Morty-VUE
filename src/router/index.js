@@ -1,11 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomePage from '../views/HomePage.vue';
+import HeaderHomePage from '../layout/HeaderHomePage.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'homePage',
+    component: {
+      header: HeaderHomePage,
+      sideBar: '',
+      default: HomePage,
+    }
   },
   {
     path: '/about',
