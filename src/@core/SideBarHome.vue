@@ -10,8 +10,10 @@ export default {
 
 <style lang="scss">
 .sideBar {
+  position: absolute;
   width: 282px;
-  box-shadow: 0px 4px 20px #a3f307;
+  box-shadow: 4px 4px 10px #a3f307;
   background-color: #000000;
+  height: 20vh;
 }
 </style>

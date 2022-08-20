@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue';
-import CardCaracter from '../@shared/components/CardCaracter.vue'
+import homePageRoutes from '../modules/home/home.routes.js'
+import cardsViewRoutes from '../modules/cards/cards.routes.js'
 
 const routes = [
   {
@@ -8,10 +9,8 @@ const routes = [
     name: 'homePage',
     component: HomePage,
     children: [
-      {
-        path: 'card',
-        component: CardCaracter
-      }
+      ...homePageRoutes,
+      ...cardsViewRoutes
     ]
   },
 ]

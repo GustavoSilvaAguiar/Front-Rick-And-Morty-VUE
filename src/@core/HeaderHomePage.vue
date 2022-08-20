@@ -1,12 +1,20 @@
 <template>
   <div class="header">
     <div class="header--leftSide">
-      <div class="header--menu"></div>
+      <div v-if="showMenu" @click="$emit('showSideBar')" class="header--menu"></div>
       <div class="header--logo"></div>
     </div>
     <div class="header--rightSide">
-      <router-link class="header--rightSide--link" to="/">Início</router-link>
-      <router-link class="header--rightSide--link" to="/card"
+      <router-link
+        class="header--rightSide--link"
+        to="/"
+        @click="showMenu = false"
+        >Início</router-link
+      >
+      <router-link
+        class="header--rightSide--link"
+        to="/cards"
+        @click="showMenu = true"
         >Cards</router-link
       >
     </div>
@@ -14,7 +22,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      showMenu: false,
+    };
+  },
+  emits:['showSideBar'],
+};
 </script>
 
 <style lang="scss">
@@ -58,7 +73,7 @@ export default {};
     cursor: pointer;
     transition: all 0.2s;
   }
-  &--menu:hover{
+  &--menu:hover {
     transform: scale(1.1);
   }
 
