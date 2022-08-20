@@ -19,6 +19,7 @@
 import HeaderHomePage from "../@core/HeaderHomePage.vue";
 import SideBarHome from "../@core/SideBarHome.vue";
 
+
 export default {
   name: "HomePage",
   components: { HeaderHomePage, SideBarHome },
@@ -27,6 +28,7 @@ export default {
       showSideBar: false,
     };
   },
+  
 };
 </script>
 
