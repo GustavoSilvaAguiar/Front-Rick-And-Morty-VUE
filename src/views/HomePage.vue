@@ -1,9 +1,15 @@
 <template>
   <div class="home">
-    <header-home-page></header-home-page>
+    <header-home-page
+      @showSideBar="
+        () => {
+          showSideBar = !showSideBar;
+        }
+      "
+    ></header-home-page>
+    <side-bar-home v-if="showSideBar"></side-bar-home>
 
     <div class="body">
-      <card-caracter></card-caracter>
       <router-view></router-view>
     </div>
   </div>
@@ -11,11 +17,16 @@
 
 <script>
 import HeaderHomePage from "../@core/HeaderHomePage.vue";
-import CardCaracter from '../@shared/components/CardCaracter.vue';
+import SideBarHome from "../@core/SideBarHome.vue";
 
 export default {
   name: "HomePage",
-  components: { HeaderHomePage, CardCaracter },
+  components: { HeaderHomePage, SideBarHome },
+  data() {
+    return {
+      showSideBar: false,
+    };
+  },
 };
 </script>
 
@@ -23,10 +34,10 @@ export default {
 .home {
   height: 100vh;
 }
- .body {
-    overflow-y: auto;
-    height: calc(100% - 163px);
-  }
+.body {
+  overflow-y: auto;
+  height: calc(100% - 163px);
+}
 
 @media only screen and (max-width: 1300px) {
   .body {
