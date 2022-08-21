@@ -44,7 +44,6 @@ export default {
     ...mapMutations(["showSideBarButton"]),
 
     changeSearch(res, status) {
-      console.log("res", res, status);
       this.name = res;
       this.page = 1;
       this.status = status;
@@ -70,14 +69,11 @@ export default {
       if (this.page < this.generalInfo.pages) {
         this.page++;
         CardsService.getAllCharacters(this.page, this.name).then((res) => {
-          console.log("antes do for");
           for (const index in res.data.results) {
-            console.log("entra no for");
             if (index > 0) {
               this.cardData.push(res.data.results[index]);
             }
           }
-          console.log("cardData", this.cardData);
         });
       }
     },
