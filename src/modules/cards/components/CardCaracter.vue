@@ -1,46 +1,84 @@
 <template>
-  <div class="card">
-    <div class="card--header">
-      <div class="card--header--name">nome</div>
-      <div class="card--header--species">
-        especie fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs
+  <router-link class="aux" to="/cards/cardDetail">
+    <div class="card" @click="local">
+      <div class="card--header"> 
+        <div class="card--header--name">{{ cardInfo.name }}</div>
+        <div class="card--header--species">
+          {{ cardInfo.species }}
+        </div>
+      </div>
+      <div class="card--image">
+        <img :src="cardInfo.image" class="card--image--img" />
+        <div class="card--image--frame"></div>
+      </div>
+      <div class="aux--body">
+        <div class="card--body">
+          <div class="card--body--textArea" v-if="cardInfo.type !== ''">
+            <div class="card--body--textArea--text">
+              tipo: {{ cardInfo.type }}
+            </div>
+          </div>
+          <div class="card--body--textArea">
+            <div class="card--body--textArea--text">
+              localização: {{ cardInfo.location.name }}
+            </div>
+          </div>
+          <div class="card--body--textArea">
+            <div class="card--body--textArea--text">
+              episódios: {{ cardInfo.episode.length }}
+            </div>
+          </div>
+        </div>
+        <div class="card--footer">
+          <div class="card--footer--leftSide">
+            <div class="card--footer--textArea">
+              Genero: {{ cardInfo.gender }}
+            </div>
+            <div class="card--footer--textArea">
+              Status: {{ cardInfo.status }}
+            </div>
+          </div>
+          <div class="card--footer--textArea">
+            Origem: {{ cardInfo.origin.name }}
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card--image">
-      <img
-        src="https://www.proibidoler.com/wp-content/uploads/2020/07/critica-resenha-analise-rick-and-morty-3.jpg"
-        class="card--image--img"
-      />
-      <div class="card--image--frame"></div>
-    </div>
-    <div class="card--body">
-      <div class="card--body--textArea">
-        <div class="card--body--textArea--text">tipo:</div>
-      </div>
-      <div class="card--body--textArea">
-        <div class="card--body--textArea--text">localização:</div>
-      </div>
-      <div class="card--body--textArea">
-        <div class="card--body--textArea--text">episódios:</div>
-      </div>
-    </div>
-    <div class="card--footer">
-      <div class="card--footer--leftSide">
-        <div class="card--footer--textArea">Genero:</div>
-        <div class="card--footer--textArea">Status:</div>
-      </div>
-      <div class="card--footer--textArea">Origem: arth (Replacement Dimension) gdfgdfgfgd fgfgffhj dfsdfsdf</div>
-    </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
 export default {
-
-}
+  props: {
+    cardData: Object,
+  },
+  data() {
+    return {
+      cardInfo: this.cardData,
+    };
+  },
+  mounted() {
+    console.log("teste de valor", this.cardInfo);
+  },
+  methods:{
+    local(){
+      localStorage.card = JSON.stringify(this.cardInfo);
+    }
+  }
+};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.aux{
+  text-decoration: none;
+}
+.aux--body {
+  height: 225px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .card {
   width: 315px;
   height: 440px;
@@ -49,6 +87,7 @@ export default {
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.3s;
+  text-decoration: none;
 
   &--header {
     display: flex;
@@ -114,7 +153,9 @@ export default {
 
   &--body {
     display: flex;
+    height: 100%;
     flex-direction: column;
+    justify-content: space-evenly;
 
     &--textArea {
       width: 236px;

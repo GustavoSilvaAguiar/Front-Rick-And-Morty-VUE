@@ -1,11 +1,7 @@
 <template>
   <div class="home">
     <header-home-page
-      @showSideBar="
-        () => {
-          showSideBar = !showSideBar;
-        }
-      "
+      @showSideBar="showSideBar"
     ></header-home-page>
     <side-bar-home v-if="showSideBar"></side-bar-home>
 
@@ -24,9 +20,9 @@ export default {
   components: { HeaderHomePage, SideBarHome },
   data() {
     return {
-      showSideBar: false,
     };
   },
+  
 };
 </script>
 
