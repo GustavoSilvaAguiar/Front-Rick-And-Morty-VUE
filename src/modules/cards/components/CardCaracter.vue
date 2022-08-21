@@ -1,48 +1,50 @@
 <template>
-  <div class="card">
-    <div class="card--header">
-      <div class="card--header--name">{{ cardInfo.name }}</div>
-      <div class="card--header--species">
-        {{ cardInfo.species }}
-      </div>
-    </div>
-    <div class="card--image">
-      <img :src="cardInfo.image" class="card--image--img" />
-      <div class="card--image--frame"></div>
-    </div>
-    <div class="aux">
-      <div class="card--body">
-        <div class="card--body--textArea" v-if="cardInfo.type !== ''">
-          <div class="card--body--textArea--text">
-            tipo: {{ cardInfo.type }}
-          </div>
-        </div>
-        <div class="card--body--textArea">
-          <div class="card--body--textArea--text">
-            localização: {{ cardInfo.location.name }}
-          </div>
-        </div>
-        <div class="card--body--textArea">
-          <div class="card--body--textArea--text">
-            episódios: {{ cardInfo.episode.length }}
-          </div>
+  <router-link class="aux" to="/cards/cardDetail">
+    <div class="card" @click="local">
+      <div class="card--header"> 
+        <div class="card--header--name">{{ cardInfo.name }}</div>
+        <div class="card--header--species">
+          {{ cardInfo.species }}
         </div>
       </div>
-      <div class="card--footer">
-        <div class="card--footer--leftSide">
+      <div class="card--image">
+        <img :src="cardInfo.image" class="card--image--img" />
+        <div class="card--image--frame"></div>
+      </div>
+      <div class="aux--body">
+        <div class="card--body">
+          <div class="card--body--textArea" v-if="cardInfo.type !== ''">
+            <div class="card--body--textArea--text">
+              tipo: {{ cardInfo.type }}
+            </div>
+          </div>
+          <div class="card--body--textArea">
+            <div class="card--body--textArea--text">
+              localização: {{ cardInfo.location.name }}
+            </div>
+          </div>
+          <div class="card--body--textArea">
+            <div class="card--body--textArea--text">
+              episódios: {{ cardInfo.episode.length }}
+            </div>
+          </div>
+        </div>
+        <div class="card--footer">
+          <div class="card--footer--leftSide">
+            <div class="card--footer--textArea">
+              Genero: {{ cardInfo.gender }}
+            </div>
+            <div class="card--footer--textArea">
+              Status: {{ cardInfo.status }}
+            </div>
+          </div>
           <div class="card--footer--textArea">
-            Genero: {{ cardInfo.gender }}
+            Origem: {{ cardInfo.origin.name }}
           </div>
-          <div class="card--footer--textArea">
-            Status: {{ cardInfo.status }}
-          </div>
-        </div>
-        <div class="card--footer--textArea">
-          Origem: {{ cardInfo.origin.name }}
         </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -58,11 +60,19 @@ export default {
   mounted() {
     console.log("teste de valor", this.cardInfo);
   },
+  methods:{
+    local(){
+      localStorage.card = JSON.stringify(this.cardInfo);
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.aux {
+.aux{
+  text-decoration: none;
+}
+.aux--body {
   height: 225px;
   display: flex;
   flex-direction: column;
@@ -77,6 +87,7 @@ export default {
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.3s;
+  text-decoration: none;
 
   &--header {
     display: flex;
