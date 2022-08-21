@@ -3,6 +3,7 @@
     <side-bar-home
       v-if="showSideBar"
       @changeName="changeSearch"
+      class="teste"
     ></side-bar-home>
     <div v-for="card in cardData" :key="card.id">
       <card-caracter :cardData="card"></card-caracter>
@@ -26,6 +27,7 @@ export default {
       generalInfo: [],
       page: 1,
       name: "",
+      status: "",
     };
   },
   computed: {
@@ -41,14 +43,16 @@ export default {
   methods: {
     ...mapMutations(["showSideBarButton"]),
 
-    changeSearch(res) {
+    changeSearch(res, status) {
+      console.log("res", res, status);
       this.name = res;
       this.page = 1;
+      this.status = status;
       this.getCards();
     },
 
     getCards() {
-      CardsService.getAllCharacters(this.page, this.name)
+      CardsService.getAllCharacters(this.page, this.name, this.status)
         .then((res) => {
           this.cardData = res.data.results;
           this.generalInfo = res.data.info;
