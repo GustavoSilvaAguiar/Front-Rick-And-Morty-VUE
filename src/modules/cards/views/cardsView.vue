@@ -1,42 +1,71 @@
 <template>
   <div class="cardView">
+    <side-bar-home
+      v-if="showSideBar"
+      @changeName="changeSearch"
+    ></side-bar-home>
     <div v-for="card in cardData" :key="card.id">
       <card-caracter :cardData="card"></card-caracter>
     </div>
-    <div class="teste"></div>
+    <infinite-scroll @endOfScroll="pagination()"></infinite-scroll>
   </div>
 </template>
 
 <script>
+import InfiniteScroll from "../../../@shared/components/infiniteScroll.vue";
 import CardCaracter from "../components/CardCaracter.vue";
 import CardsService from "../services/cards.service.js";
+import { mapMutations, mapState } from "vuex";
+import SideBarHome from "../../../@core/SideBarHome.vue";
 
 export default {
-  components: { CardCaracter },
+  components: { CardCaracter, InfiniteScroll, SideBarHome },
   data() {
     return {
       cardData: [],
       generalInfo: [],
       page: 1,
+      name: "",
     };
   },
+  computed: {
+    ...mapState({
+      showSideBar: (state) => state.sideBar,
+    }),
+  },
+
   mounted() {
-    this.getCards(this.page);
+    this.getCards();
+    this.showSideBarButton();
   },
   methods: {
+    ...mapMutations(["showSideBarButton"]),
+
+    changeSearch(res) {
+      this.name = res;
+      this.page = 1;
+      this.getCards();
+    },
+
     getCards() {
-      CardsService.getAllCharacters(this.page).then((res) => {
-        this.cardData = res.data.results;
-        this.generalInfo = res.data.info;
-        console.log("cardData", this.cardData);
-        console.log("generalInfo", this.generalInfo.pages);
-        this.scrollFunction();
-      });
+      CardsService.getAllCharacters(this.page, this.name)
+        .then((res) => {
+          this.cardData = res.data.results;
+          this.generalInfo = res.data.info;
+        })
+        .catch(() => {
+          this.name = "";
+          this.page = 1;
+          CardsService.getAllCharacters(this.page, this.name).then((res) => {
+            this.cardData = res.data.results;
+            this.generalInfo = res.data.info;
+          });
+        });
     },
     pagination() {
       if (this.page < this.generalInfo.pages) {
         this.page++;
-        CardsService.getAllCharacters(this.page).then((res) => {
+        CardsService.getAllCharacters(this.page, this.name).then((res) => {
           console.log("antes do for");
           for (const index in res.data.results) {
             console.log("entra no for");
@@ -48,19 +77,6 @@ export default {
         });
       }
     },
-    scrollFunction() {
-      var observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0]["isIntersecting"] === true) {
-            console.log("entrou");
-            this.pagination();
-          }
-        },
-        { threshold: 0.5 }
-      );
-
-      observer.observe(document.querySelector(".teste"));
-    },
   },
 };
 </script>
@@ -68,6 +84,7 @@ export default {
 <style lang="scss" scoped>
 .cardView {
   display: flex;
+  position: relative;
   padding: 20px;
   flex-wrap: wrap;
   justify-content: space-around;

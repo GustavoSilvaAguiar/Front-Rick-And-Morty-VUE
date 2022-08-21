@@ -1,5 +1,5 @@
 <template>
-  <div id="scrollInfinite">
+  <div class="scrollInfinite">
     <slot name="body">
       <div class="defaultLoading--icon">
         <div></div>
@@ -25,7 +25,7 @@ export default {
         { threshold: 0.5 }
       );
 
-      observer.observe('#scrollInfinite');
+      observer.observe(document.querySelector(".scrollInfinite"));
     },
   },
   mounted() {

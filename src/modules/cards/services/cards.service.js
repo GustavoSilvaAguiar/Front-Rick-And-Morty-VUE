@@ -3,9 +3,9 @@
 import { coreAPI } from "@/apis/apiConfig";
 
 class CardsService {
-    async getAllCharacters(page) {
+    async getAllCharacters(page, name) {
         try {
-            const data = await coreAPI.get(`/character/?page=${page}`);
+            const data = await coreAPI.get(`/character/?page=${page}&name=${name}`);
             console.log('passou aqui', data)
             return data;
         } catch (error) {

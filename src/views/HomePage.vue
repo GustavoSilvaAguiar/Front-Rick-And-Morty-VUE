@@ -1,11 +1,7 @@
 <template>
   <div class="home">
     <header-home-page
-      @showSideBar="
-        () => {
-          showSideBar = !showSideBar;
-        }
-      "
+      @showSideBar="showSideBar"
     ></header-home-page>
     <side-bar-home v-if="showSideBar"></side-bar-home>
 
@@ -19,13 +15,11 @@
 import HeaderHomePage from "../@core/HeaderHomePage.vue";
 import SideBarHome from "../@core/SideBarHome.vue";
 
-
 export default {
   name: "HomePage",
   components: { HeaderHomePage, SideBarHome },
   data() {
     return {
-      showSideBar: false,
     };
   },
   

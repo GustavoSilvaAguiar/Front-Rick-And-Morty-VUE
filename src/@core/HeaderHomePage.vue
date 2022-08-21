@@ -1,20 +1,24 @@
 <template>
   <div class="header">
     <div class="header--leftSide">
-      <div v-if="showMenu" @click="$emit('showSideBar')" class="header--menu"></div>
+      <div
+        v-if="showMenu"
+        @click="showSideBar"
+        class="header--menu"
+      ></div>
       <div class="header--logo"></div>
     </div>
     <div class="header--rightSide">
       <router-link
         class="header--rightSide--link"
         to="/"
-        @click="showMenu = false"
+        @click="hideSideBarButton"
         >Início</router-link
       >
       <router-link
         class="header--rightSide--link"
         to="/cards"
-        @click="showMenu = true"
+        
         >Cards</router-link
       >
     </div>
@@ -22,13 +26,19 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex";
 export default {
   data() {
     return {
-      showMenu: false,
     };
   },
-  emits:['showSideBar'],
+  emits: ["showSideBar"],
+  computed: {
+    ...mapState({ showMenu: (state) => state.sideBarButton }),
+  },
+  methods: {
+    ...mapMutations(["showSideBarButton", "hideSideBarButton", "showSideBar"]),
+  },
 };
 </script>
 

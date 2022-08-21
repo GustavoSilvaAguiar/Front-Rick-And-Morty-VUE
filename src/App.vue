@@ -1,12 +1,6 @@
 <template>
   <div class="wrap">
-  <router-view></router-view>
-    <!-- <div class="conteiner">
-      <div class="sideBar">teste</div>
-       
-      <div class="body">
-      </div>
-    </div> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -23,9 +17,10 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #000000; 
+  background-color: #000000;
   height: 100vh;
 }
+
 .wrap {
   .conteiner {
     display: flex;

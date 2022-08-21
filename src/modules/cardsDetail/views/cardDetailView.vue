@@ -17,6 +17,7 @@
 
 <script>
 import topicsDetail from '../components/topicsDetail.vue';
+import { mapMutations } from 'vuex';
 export default {
   components: { topicsDetail },
   data() {
@@ -27,11 +28,15 @@ export default {
     };
   },
   mounted() {
+    this.hideSideBarButton();
     this.localData = JSON.parse(localStorage.card);
     this.localDataLocation = JSON.parse(localStorage.card).location.name;
     this.localDataEpisodes = JSON.parse(localStorage.card).episode.length;
     console.log("res", this.localData);
   },
+  methods:{
+    ...mapMutations(["hideSideBarButton"]),
+  }
 };
 </script>
 
