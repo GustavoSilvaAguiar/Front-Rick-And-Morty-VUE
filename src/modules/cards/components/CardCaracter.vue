@@ -57,9 +57,6 @@ export default {
       cardInfo: this.cardData,
     };
   },
-  mounted() {
-    console.log("teste de valor", this.cardInfo);
-  },
   methods:{
     local(){
       localStorage.card = JSON.stringify(this.cardInfo);
