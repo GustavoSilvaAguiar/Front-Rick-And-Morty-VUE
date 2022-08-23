@@ -59,7 +59,8 @@ export default {
         .catch(() => {
           this.name = "";
           this.page = 1;
-          CardsService.getAllCharacters(this.page, this.name).then((res) => {
+          this.status = "";
+          CardsService.getAllCharacters(this.page, this.name, this.status).then((res) => {
             this.cardData = res.data.results;
             this.generalInfo = res.data.info;
           });
@@ -68,7 +69,7 @@ export default {
     pagination() {
       if (this.page < this.generalInfo.pages) {
         this.page++;
-        CardsService.getAllCharacters(this.page, this.name).then((res) => {
+        CardsService.getAllCharacters(this.page, this.name, this.status).then((res) => {
           for (const index in res.data.results) {
             if (index > 0) {
               this.cardData.push(res.data.results[index]);
